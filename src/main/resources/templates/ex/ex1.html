@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <li th:each="str,status: ${list}">
+            <span th:if="${status.odd}"> ODD -- [[${str}]]</span>
+            <span th:unless="${status.odd}"> EVEN -- [[${str}]]</span>
+        </li>
+    </ul>
+
+    <div th:with="num1=${10}, num2=${20}">
+        <h4 th:text="${num1 + num2}"></h4>
+    </div>
+
+  <h4>[[${list}]]</h4>
+<hr>
+    <h4 th:text="${list}"></h4>
+
+    <a th:href="@{/hello(name='AAA', age= 16)}">Go to /hello</a><br/>
+    <a th:href="@{/hello1(name='AAA', age= 16)}">Go to /hello</a><br/>
+    <a th:href="@{/hello2(name='한글처리', age= 16)}">Go to /hello</a><br/>
+    <a th:href="@{/hello3(types=${ {'AA','BB','CC'} }, age= 16)}">Go to /hello</a><br/>
+
+</body>
+</html>
