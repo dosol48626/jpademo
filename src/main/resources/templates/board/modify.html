@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www/thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz.thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}"
+      lang="en">
+<div layout:fragment="content">
+
+    <div class="card">
+            <h5 class="card-title">상세 페이지</h5>
+            <form action="/board/read" method="post">
+                <div class="card-body">
+                    <h5 class="card-title">게시글 상세보기</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Bno</label>
+                        <input type="text" class="form-control" name="bno" th:value="${Board.bno}" >
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" name="title" th:value="${Board.title}" >
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Content</label>
+                        <textarea class="form-control" name="content" row="3">[[${Board.content}]]</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Writer</label>
+                        <input type="text" class="form-control" name="writer" th:value="${Board.writer}" >
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">PostDate</label>
+                        <input type="text" class="form-control" name="postdate" th:value="${Board.postdate}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">VisitCount</label>
+                        <input type="text" class="form-control" name="visitcount" th:value="${Board.visitcount}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <button type="submit" class="btn btn-primary">Modify</button>
+                        <button type="button" class="btn btn-secondary">List</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+    </div>
+
