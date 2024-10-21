@@ -1,85 +1,142 @@
+<!--/*<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      layout:decorate="~{layout/basic.html}"-->
+<!--      lang="en">-->
+<!--<head>-->
+<!--  <title>게시글 상세보기</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div layout:fragment="content">-->
+
+<!--  <div class="card">-->
+<!--    <div class="card-body">-->
+<!--      <h5 class="card-title">상세 페이지</h5>-->
+
+<!--      <div class="card-body">-->
+<!--        <h5 class="card-title">게시글 상세보기</h5>-->
+<!--        <div class="mb-3">-->
+<!--          <label class="form-label">Bno</label>-->
+<!--          <input type="text" class="form-control" name="bno" th:value="${Board.bno}" readonly>-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--          <label class="form-label">Title</label>-->
+<!--          <input type="text" class="form-control" name="title" th:value="${Board.title}" readonly>-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--          <label class="form-label">Content</label>-->
+<!--          <textarea class="form-control" name="content" rows="3" readonly th:text="${Board.content}"></textarea>-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--          <label class="form-label">Writer</label>-->
+<!--          <input type="text" class="form-control" name="writer" th:value="${Board.writer}" readonly>-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--          <label class="form-label">PostDate</label>-->
+<!--          <input type="text" class="form-control" name="postdate" th:value="${Board.postdate}" readonly>-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--          <label class="form-label">VisitCount</label>-->
+<!--          <input type="text" class="form-control" name="visitcount" th:value="${Board.visitcount}" readonly>-->
+<!--        </div>-->
+
+
+<!--        <div class="my-4">-->
+<!--          <div class="float-end">-->
+<!--            <a th:href="@{/board/list}" class="text-decoration-none">-->
+<!--              <button type="button" class="btn btn-primary">List</button>-->
+<!--            </a>-->
+<!--            <a th:href="@{/board/modify(bno=${Board.bno})}" class="text-decoration-none">-->
+<!--              <button type="button" class="btn btn-secondary">Modify</button>-->
+<!--            </a>-->
+<!--            <a th:href="@{/board/delete(bno=${Board.bno})}">-->
+<!--              <button type="button" class="btn btn-primary">Delete</button>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
+
+<!--&lt;!&ndash;    <script th:inline="javascript" layout:fragment="script">&ndash;&gt;-->
+<!--&lt;!&ndash;      document.querySelector(".btn-primary").addEventListener("click", function (e){&ndash;&gt;-->
+<!--&lt;!&ndash;        self.location = `/board/modify?bno=${Board.bno}`&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;    </script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <script th:inline="javascript" layout:fragment="script">&ndash;&gt;-->
+<!--&lt;!&ndash;      document.querySelector(".btn-primary").addEventListener("click", function (e) {&ndash;&gt;-->
+<!--&lt;!&ndash;        e.preventDefault();&ndash;&gt;-->
+<!--&lt;!&ndash;        self.location = `/board/modify?bno=[[${Board.bno}]]`;&ndash;&gt;-->
+<!--&lt;!&ndash;      });&ndash;&gt;-->
+<!--&lt;!&ndash;    </script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <script layout:fragment="script" th:inline="javascript">&ndash;&gt;-->
+<!--&lt;!&ndash;        const formObj = document.querySelector(".btn-primary").addEventListener("click", function (e){&ndash;&gt;-->
+<!--&lt;!&ndash;          e.preventDefault()&ndash;&gt;-->
+<!--&lt;!&ndash;          e.stopPropagation()&ndash;&gt;-->
+
+<!--&lt;!&ndash;          formObj.action = `/board/modify?bno=[[${Board.bno}]]`&ndash;&gt;-->
+<!--&lt;!&ndash;          formObj.&ndash;&gt;-->
+<!--&lt;!&ndash;        })&ndash;&gt;-->
+<!--&lt;!&ndash;    </script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <script layout:fragment="script" &ndash;&gt;-->
+<!--  </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>*/-->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www/thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/basic.html}"
       lang="en">
-<head>
-  <title>게시글 상세보기</title>
-</head>
-<body>
 <div layout:fragment="content">
-
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">상세 페이지</h5>
-
-      <div class="card-body">
-        <h5 class="card-title">게시글 상세보기</h5>
-        <div class="mb-3">
-          <label class="form-label">Bno</label>
-          <input type="text" class="form-control" name="bno" th:value="${Board.bno}" readonly>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Title</label>
-          <input type="text" class="form-control" name="title" th:value="${Board.title}" readonly>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Content</label>
-          <textarea class="form-control" name="content" rows="3" readonly th:text="${Board.content}"></textarea>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Writer</label>
-          <input type="text" class="form-control" name="writer" th:value="${Board.writer}" readonly>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">PostDate</label>
-          <input type="text" class="form-control" name="postdate" th:value="${Board.postdate}" readonly>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">VisitCount</label>
-          <input type="text" class="form-control" name="visitcount" th:value="${Board.visitcount}" readonly>
-        </div>
-
-
-        <div class="my-4">
-          <div class="float-end">
-            <a th:href="@{/board/list}" class="text-decoration-none">
-              <button type="button" class="btn btn-primary">List</button>
-            </a>
-            <a th:href="@{/board/modify(bno=${Board.bno})}" class="text-decoration-none">
-              <button type="button" class="btn btn-secondary">Modify</button>
-            </a>
-          </div>
-        </div>
-
+      <h5 class="card-title">Register Page</h5>
+      <!--        <form action="/board/register" method="post">-->
+      <div class="input-group mb-3">
+        <span class="input-group-text">Bno</span>
+        <input type="text" name="bno" class="form-control" th:value="${dto.bno}" readonly>
       </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Title</span>
+        <input type="text" name="title" class="form-control" th:value="${dto.title}" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Content</span>
+        <textarea name="content" class="form-control col-sm-5" rows="5" readonly>[[${dto.content}]]</textarea>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Writer</span>
+        <input type="text" name="writer" class="form-control" th:value="${dto.writer}" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">RegisterDate</span>
+        <input type="text" name="postdate" class="form-control" th:value="${dto.regDate}" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">ModifyDate</span>
+        <input type="text" name="postdate" class="form-control" th:value="${dto.modDate}" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">VisitCount</span>
+        <input type="text" name="visitcount" class="form-control" th:value="${dto.visitcount}" readonly>
+      </div>
+      <div class="input-group mb-3" th:with="link=${pageRequestDTO.getLink()}">
+        <a th:href="|@{/board/modify(bno=${dto.bno})}&${link}|" class="text-decoration-none">
+          <button type="button" class="btn btn-primary">Modify</button>
+        </a>
+        <a th:href="|@{/board/list}?${link}|" class="text-decoration-none">
+          <button type="reset" class="btn btn-secondary">List</button>
+        </a>
+      </div>
+      <!--        </form>-->
     </div>
-
-<!--    <script th:inline="javascript" layout:fragment="script">-->
-<!--      document.querySelector(".btn-primary").addEventListener("click", function (e){-->
-<!--        self.location = `/board/modify?bno=${Board.bno}`-->
-<!--      })-->
-<!--    </script>-->
-
-<!--    <script th:inline="javascript" layout:fragment="script">-->
-<!--      document.querySelector(".btn-primary").addEventListener("click", function (e) {-->
-<!--        e.preventDefault();-->
-<!--        self.location = `/board/modify?bno=[[${Board.bno}]]`;-->
-<!--      });-->
-<!--    </script>-->
-
-<!--    <script layout:fragment="script" th:inline="javascript">-->
-<!--        const formObj = document.querySelector(".btn-primary").addEventListener("click", function (e){-->
-<!--          e.preventDefault()-->
-<!--          e.stopPropagation()-->
-
-<!--          formObj.action = `/board/modify?bno=[[${Board.bno}]]`-->
-<!--          formObj.-->
-<!--        })-->
-<!--    </script>-->
-
-<!--    <script layout:fragment="script" -->
   </div>
 </div>
+</div>
+
 </body>
 </html>
