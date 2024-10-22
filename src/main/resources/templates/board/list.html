@@ -90,12 +90,14 @@
           <li class="page-item" th:if="${responseDTO.prev}">
             <a class="page-link" th:data-num="${responseDTO.start -1}">Previous</a>
           </li>
+<!--/*          <li>를 if로 보여줄지 조건을 주는거임. */-->
           <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
             <li th:class="${responseDTO.page == i}?'page-item active':'page-item'" >
               <a class="page-link"  th:data-num="${i}">[[${i}]]</a>
             </li>
           </th:block>
           <li class="page-item" th:if="${responseDTO.next}">
+<!--/*            next가 true이면 보여주게 해라는 뜻임*/-->
             <a class="page-link"  th:data-num="${responseDTO.end + 1}">Next</a>
           </li>
         </ul>
