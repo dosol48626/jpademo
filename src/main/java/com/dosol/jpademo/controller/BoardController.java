@@ -69,6 +69,9 @@ public class BoardController {
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
+        //요청된 정보가 DTO로 왔는데 왜 Model이 있냐.
+        //빈 공간에 그릇을 넣어준다?
+        //빈그릇을 꽉 차서 보여준다?
         log.info("controller list");
         model.addAttribute("responseDTO", boardService.getList(pageRequestDTO));
     }
