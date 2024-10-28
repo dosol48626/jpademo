@@ -1,72 +1,3 @@
-<!--/*<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www/thymeleaf.org"-->
-<!--      xmlns:layout="http://www.ultraq.net.nz.thymeleaf/layout"-->
-<!--      layout:decorate="~{layout/basic.html}"-->
-<!--      lang="en">-->
-<!--<div layout:fragment="content">-->
-
-<!--    <div class="card">-->
-<!--        <h5 class="card-title">상세 페이지</h5>-->
-
-<!--        <div class="card-body">-->
-<!--            <h5 class="card-title">게시글 상세보기</h5>-->
-<!--&lt;!&ndash;            <form th:action="@{/board/modify(bno=${Board.bno})}" method="post">&ndash;&gt;-->
-<!--            <form th:action="@{/board/modify}" method="post">-->
-<!--                <input type="hidden" name="bno" th:value="${Board.bno}">-->
-<!--                <div class="mb-3">-->
-<!--                    <label class="form-label">Bno</label>-->
-<!--                    <input type="text" class="form-control" name="bno" readonly th:value="${Board.bno}">-->
-<!--                </div>-->
-<!--                <div class="mb-3">-->
-<!--                    <label class="form-label">Title</label>-->
-<!--                    <input type="text" class="form-control" name="title" th:value="${Board.title}">-->
-<!--                </div>-->
-<!--                <div class="mb-3">-->
-<!--                    <label class="form-label">Content</label>-->
-<!--                    <textarea class="form-control" name="content" rows="3" th:text="${Board.content}"></textarea>-->
-<!--                </div>-->
-<!--                <div class="mb-3">-->
-<!--                    <label class="form-label">Writer</label>-->
-<!--                    <input type="text" class="form-control" name="writer" th:value="${Board.writer}">-->
-<!--                </div>-->
-<!--                <div class="mb-3">-->
-<!--                    <label class="form-label">PostDate</label>-->
-<!--                    <input type="text" class="form-control" name="postdate" readonly th:value="${Board.postdate}">-->
-<!--                </div>-->
-<!--                <div class="mb-3">-->
-<!--                    <label class="form-label">VisitCount</label>-->
-<!--                    <input type="text" class="form-control" name="visitcount" readonly th:value="${Board.visitcount}">-->
-<!--                </div>-->
-<!--                <button type="button" id="modifyBtn" class="btn btn-primary">Modify</button>-->
-<!--                <button type="button" id="listBtn" class="btn btn-secondary">List</button>-->
-<!--            </form>-->
-<!--            <script layout:fragment="script" th:inline="javascript">-->
-<!--                const formObj=document.querySelector("form");-->
-<!--                document.querySelector("#modifyBtn").addEventListener("click", function (e){-->
-<!--                    e.preventDefault()-->
-<!--                    e.stopPropagation()-->
-<!--                    formObj.action = "/board/modify"-->
-<!--                    formObj.method = "post"-->
-<!--                    formObj.submit()-->
-<!--                }, false)-->
-<!--                document.querySelector("#listBtn").addEventListener("click", function (e){-->
-<!--                    e.preventDefault()-->
-<!--                    e.stopPropagation()-->
-<!--                    // formObj.action = "/board/list"-->
-<!--                    // formObj.action = `/board/list?bno=${Board.bno}`-->
-<!--                    formObj.reset()-->
-<!--                    self.location = "/board/list"-->
-<!--                }, false)-->
-<!--            </script>-->
-<!--&lt;!&ndash;            <div class="input-group mb-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                <a th:href="@{/board/list}">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <button type="button" class="btn btn-primary">List</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                </a>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--</html>*/-->
 <!DOCTYPE html>
 <html xmlns:th="http://www/thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -77,8 +8,9 @@
         <div class="card-body">
             <h5 class="card-title">Register Page</h5>
 
-            <form action="/board/modify" method="post">
-                <input type="hidden" name="bno" th:value="${dto.bno}">
+            <form action="/board/modify" method="post" enctype="multipart/form-data" id="f1">
+
+            <input type="hidden" name="bno" th:value="${dto.bno}">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Title</span>
                     <input type="text" name="title" class="form-control" th:value="${dto.title}">
@@ -87,10 +19,29 @@
                     <span class="input-group-text">Content</span>
                     <textarea name="content" class="form-control col-sm-5" rows="5">[[${dto.content}]]</textarea>
                 </div>
+
+                <div class="input-group uploadResult mb-3">
+                    <span class="input-group-text">첨부파일</span>
+                    <div class="col-1" th:if="${dto.fileNames != null && dto.fileNames.size() > 0}">
+                        <div class="container-fluid d-flex" style="flex-wrap: wrap;">
+                            <img class="m-3" th:each="fileName: ${dto.fileNames}"
+                                 th:src="|/board/view/s_${fileName}|" th:data-src="${fileName}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uploadHidden"></div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">FileUpload</span>
+                    <input type="file" name="files" class="form-control">
+                </div>
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">Writer</span>
                     <input type="text" name="writer" class="form-control" th:value="${dto.writer}">
                 </div>
+
                 <div class="input-group mb-3">
                     <button type="button" id="modifyBtn" class="btn btn-primary">Modify</button>
                     <button type="button" id="removeBtn" class="btn btn-danger">Remove</button>
@@ -101,22 +52,47 @@
     </div>
 </div>
 </div>
+
 <script layout:fragment="script" th:inline="javascript">
     const formObj=document.querySelector("form");
     document.querySelector("#modifyBtn").addEventListener("click", function (e){
         e.preventDefault()
         e.stopPropagation()
+
+        appendFileData()
+
         formObj.action="/board/modify"
         formObj.method="post"
         formObj.submit()
     }, false)
+
+
     document.querySelector("#removeBtn").addEventListener("click", function (e){
         e.preventDefault()
         e.stopPropagation()
+
+        appendFileData()
+
         formObj.action="/board/remove"
         formObj.method="post"
         formObj.submit()
     }, false)
+
+    function appendFileData(){
+        const target = document.querySelector(".uploadHidden")
+        const uploadResult = document.querySelector(".uploadResult")
+        const uploadFiles = uploadResult.querySelectorAll("img")
+
+        let str = ''
+        for (let i = 0; i<uploadFiles.length; i++) {
+            const uploadFile = uploadFiles[i]
+            const imgLink = uploadFile.getAttribute("data-src")
+
+            str += `<input type='hidden' name='fileNames' value="${imgLink}">`
+        }
+        target.innerHTML=str;
+    }
+
     document.querySelector("#listBtn").addEventListener("click", function (e){
         e.preventDefault()
         e.stopPropagation()

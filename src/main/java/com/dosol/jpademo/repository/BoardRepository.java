@@ -12,12 +12,11 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch {
 
-//    @EntityGraph(attributePaths = {"imageSet"})
-//    Query("select b from Board b where b.bno = :bno")
-//    Optional<Board> findByWithImages(Long bno);    //??? 빨간줄 왜 나는거지;;
-
     @EntityGraph(attributePaths = {"imageSet"})
+    //해당 bno가 들어있는 이미지셋을 모두 가져온다. imageSet!! 이다. Set
     @Query("select b from Board b where b.bno = :bno")
+    //bno는 밑에서 받아쓴다
+
     Optional<Board> findByWithImages(Long bno);
 
 }

@@ -28,7 +28,7 @@ class BoardService2Impl implements BoardService2{
     @Override
     public Long register(BoardDTO boardDTO) {
         //Board board = modelMapper.map(boardDTO, Board.class);
-        Board board = dtoToEntity(boardDTO);
+        Board board = dtoToEntity(boardDTO); //그래서 이렇게 바뀐거네. dtoToEntity로
         Long bno = boardRepository.save(board).getBno();
         return bno;
     }
@@ -37,19 +37,28 @@ class BoardService2Impl implements BoardService2{
     public BoardDTO readOne(Long bno) {
         //Optional<Board> result = boardRepository.findById(bno);
         Optional<Board> result = boardRepository.findByWithImages(bno);
+
+        //해당게시물과 연관된 이미지를 다 가져오겠지.
+
         Board board = result.orElseThrow();
+        board.updateVisitcount();
         //BoardDTO boardDTO = modelMapper.map(board, BoardDTO.class);
         BoardDTO boardDTO= entityToDTO(board);
+
         return boardDTO;
     }
 
     @Override
     public void modify(BoardDTO boardDTO) {
         Optional<Board> result = boardRepository.findById(boardDTO.getBno());
+        //원래 파일을 가져와야 한다. 그래서 이렇게 가져옴
+
         Board board = result.orElseThrow();
 
         board.change(boardDTO.getTitle(), boardDTO.getContent());
         board.clearImages();
+        //업데이트할때 이미지 파일이 바뀔 수 있으니, 그냥 이미지를 지워버리고 바꿔치기하네
+        //그럼 이미지가 안바뀌면?
         if (boardDTO.getFileNames() != null) {
             for (String fileName : boardDTO.getFileNames()) {
                 String[] arr = fileName.split("_");
